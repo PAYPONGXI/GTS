@@ -514,9 +514,7 @@
         const artistId = urlParams.get('artist') || 'xxxtentacion';
 
         const artistInfo = mockArtists.find(artist => artist.id === artistId);
-        // Temporarily disabled while gameplay is reworked; song data stays intact in js/songs-data.js
-        const disabledArtists = ['xxxtentacion'];
-        const songs = disabledArtists.includes(artistId) ? [] : (artistSongs[artistId] || []);
+        const songs = artistSongs[artistId] || [];
 
         if (!artistInfo) {
             // Unknown artist id
