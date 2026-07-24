@@ -36,7 +36,7 @@ function renderArtists(artists) {
     const artistsGrid = document.getElementById('artistsGrid');
 
     artistsGrid.innerHTML = artists.map(artist => `
-        <a href="game.html?artist=${artist.id}" class="artist-card">
+        <a href="#" class="artist-card" data-artist="${artist.name}">
             <div class="artist-image-container">
                 <img
                     src="${artist.image}"
@@ -56,9 +56,8 @@ function renderArtists(artists) {
     artistsGrid.querySelectorAll('.artist-card').forEach(card => {
         card.addEventListener('click', (e) => {
             e.preventDefault();
-            const href = card.getAttribute('href');
-            document.querySelector('.artists-page').classList.add('page-exit');
-            setTimeout(() => { window.location.href = href; }, 250);
+            const artistName = card.getAttribute('data-artist');
+            alert(`🎵 ${artistName}\n\nกำลังมาเร็วๆ นี้ (Coming Soon)`);
         });
     });
 }
