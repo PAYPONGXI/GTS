@@ -1,0 +1,239 @@
+/* Shared Spotify-style Artist Selection Page styles */
+.artists-page {
+    background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+    min-height: 100vh;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}
+
+.artists-page.page-exit {
+    opacity: 0;
+}
+
+.artists-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 20px 40px;
+}
+
+.back-to-home {
+    display: inline-block;
+    margin-bottom: 30px;
+    color: #b3b3b3;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.back-to-home:hover {
+    color: #1ed760;
+    text-decoration: underline;
+}
+
+.page-header {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #1db954 0%, #1ed760 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-subtitle {
+    font-size: 18px;
+    color: #b3b3b3;
+    font-weight: 400;
+}
+
+/* Loading State */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid #282828;
+    border-top: 4px solid #1db954;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: #b3b3b3;
+    font-size: 16px;
+}
+
+/* Error State */
+.error-container {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.error-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: #b3b3b3;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.retry-btn {
+    background: #1db954;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.retry-btn:hover {
+    background: #1ed760;
+    transform: scale(1.05);
+}
+
+/* Artists Grid - Responsive */
+.artists-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+/* Artist Card */
+.artist-card {
+    background: #181818;
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+.artist-card:hover {
+    background: #282828;
+    transform: scale(1.05);
+}
+
+.artist-card:active {
+    transform: scale(0.98);
+}
+
+.artist-image-container {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    margin-bottom: 16px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #282828;
+}
+
+.artist-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.artist-card:hover .artist-image {
+    transform: scale(1.1);
+}
+
+.artist-name {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Fallback image */
+.artist-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+    font-size: 48px;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .artists-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .artists-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .page-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 600px) {
+    .artists-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .artists-container {
+        padding: 60px 15px 30px;
+    }
+
+    .page-title {
+        font-size: 28px;
+    }
+
+    .page-subtitle {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    .artists-grid {
+        grid-template-columns: 1fr;
+    }
+}
