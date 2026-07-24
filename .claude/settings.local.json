@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p .tmpcheck)",
+      "Bash(node -e ' *)",
+      "Bash(node --check .tmpcheck/script_0.js)",
+      "Bash(rm -rf .tmpcheck)",
+      "Bash(node --check js/artists-data.js)",
+      "Bash(node --check js/artists-page.js)",
+      "Bash(node --check js/songs-data.js)",
+      "Bash(node .tmptest.js)",
+      "Bash(npx --yes playwright install chromium --with-deps)",
+      "Bash(mkdir -p /tmp/pwtest)",
+      "Read(//tmp/**)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Read(//tmp/pwtest/**)",
+      "Bash(cp \"C:\\\\Users\\\\User\\\\Downloads\\\\Guess The Song\\\\.tmptest.js\" /tmp/pwtest/test.js)",
+      "Bash(node test.js)",
+      "Bash(pkill -f \"http.server 8123\")",
+      "Bash(rm -rf /tmp/pwtest /tmp/gts_check)",
+      "Bash(chromium-cli --session gts)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(python -c \"import playwright\")",
+      "Bash(cp /tmp/verify.js /tmp/pwtest/verify.js)",
+      "Bash(node verify.js)",
+      "Bash(pkill -f \"http.server 8000\")",
+      "Bash(python -m http.server 8000)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:8000/game.html?artist=xxxtentacion\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:8000/audio/-%20Album%20-%20SKINS/BAD!%20\\(160kbit_Opus\\).opus\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:8000/audio/-%20Album%20-%20%C2%BF/Hope%20\\(152kbit_Opus\\).opus\")"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Artists - Guess The Song</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/artists-page.css">
+</head>
+<body class="artists-page">
+    <div class="artists-container">
+        <a href="index.html" class="back-to-home">← กลับสู่หน้าแรก</a>
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1 class="page-title">International Artists</h1>
+            <p class="page-subtitle">Choose your favorite artist to start the music guessing game</p>
+        </header>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-container">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading artists...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="error-container" style="display: none;">
+            <div class="error-icon">⚠️</div>
+            <h2>Oops! Something went wrong</h2>
+            <p class="error-message">Failed to load artists. Please try again.</p>
+            <button class="retry-btn" onclick="loadArtists()">Retry</button>
+        </div>
+
+        <!-- Artists Grid -->
+        <div id="artistsGrid" class="artists-grid" style="display: none;">
+            <!-- Artists will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script src="js/artists-data.js"></script>
+    <script src="js/artists-page.js"></script>
+</body>
+</html>
