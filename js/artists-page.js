@@ -7,6 +7,16 @@ async function fetchArtists() {
     });
 }
 
+function getArtistsByCategory(category) {
+    return mockArtists.filter(artist => {
+        // กรองตามหมวดหมู่
+        const categoryMatch = artist.category === category;
+        // กรองเฉพาะศิลปินที่มีเพลง
+        const hasSongs = artistSongs[artist.id] && artistSongs[artist.id].length > 0;
+        return categoryMatch && hasSongs;
+    });
+}
+
 async function loadArtists() {
     const loadingState = document.getElementById('loadingState');
     const errorState = document.getElementById('errorState');
@@ -17,7 +27,14 @@ async function loadArtists() {
     artistsGrid.style.display = 'none';
 
     try {
-        const artists = await fetchArtists();
+        const allArtists = await fetchArtists();
+
+        // ตรวจสอบหมวดหมู่จากชื่อไฟล์
+        const category = window.location.pathname.includes('thai-pop') ? 'thai-pop' : 
+                         window.location.pathname.includes('rock') ? 'rock' :
+                         window.location.pathname.includes('pop') ? 'pop' : 'international';
+        
+        const artists = getArtistsByCategory(category);
 
         loadingState.style.display = 'none';
         artistsGrid.style.display = 'grid';
@@ -36,7 +53,7 @@ function renderArtists(artists) {
     const artistsGrid = document.getElementById('artistsGrid');
 
     artistsGrid.innerHTML = artists.map(artist => `
-        <a href="#" class="artist-card" data-artist="${artist.name}">
+        <a href="#" class="artist-card" data-artist-id="${artist.id}">
             <div class="artist-image-container">
                 <img
                     src="${artist.image}"
@@ -56,8 +73,8 @@ function renderArtists(artists) {
     artistsGrid.querySelectorAll('.artist-card').forEach(card => {
         card.addEventListener('click', (e) => {
             e.preventDefault();
-            const artistName = card.getAttribute('data-artist');
-            alert(`🎵 ${artistName}\n\nกำลังมาเร็วๆ นี้ (Coming Soon)`);
+            const artistId = card.getAttribute('data-artist-id');
+            window.location.href = `game.html?artist=${artistId}`;
         });
     });
 }

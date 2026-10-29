@@ -140,6 +140,62 @@ const artistSongs = {
         { name: "You Are Not M.O.", file: "audio/XXXTENTACION Vol. 4/You Are Not M.O. (128kbit_AAC).m4a" },
         { name: "YuNg BrAtZ", file: "audio/- Album - LOOK AT ME; THE ALBUM/YuNg BrAtZ (128kbit_AAC).m4a" }
     ],
+    "bird-thongchai": [
+        { name: "เล่าสู่กันฟัง", file: "audio/Bird Thongchai/เล่าสู่กันฟัง (128kbit_AAC).m4a" },
+        { name: "คนไม่มีแฟน", file: "audio/Bird Thongchai/คนไม่มีแฟน (128kbit_AAC).m4a" },
+        { name: "นานเท่าไรก็รอ", file: "audio/Bird Thongchai/นานเท่าไรก็รอ (128kbit_AAC).m4a" },
+        { name: "มาทำไม", file: "audio/Bird Thongchai/มาทำไม (128kbit_AAC).m4a" },
+        { name: "รักเอ๋ย", file: "audio/Bird Thongchai/รักเอ๋ย (128kbit_AAC).m4a" }
+    ],
+    "palmy": [
+        { name: "คิดมาก", file: "audio/Palmy/คิดมาก (128kbit_AAC).m4a" },
+        { name: "ซ่อนกลิ่น", file: "audio/Palmy/ซ่อนกลิ่น (128kbit_AAC).m4a" },
+        { name: "สนิทใจ", file: "audio/Palmy/สนิทใจ (128kbit_AAC).m4a" },
+        { name: "หลุมอากาศ", file: "audio/Palmy/หลุมอากาศ (128kbit_AAC).m4a" },
+        { name: "ห้องสี่มุมซ้าย", file: "audio/Palmy/ห้องสี่มุมซ้าย (128kbit_AAC).m4a" }
+    ],
+    "ed-sheeran": [
+        { name: "Perfect", file: "audio/Ed Sheeran/Perfect (128kbit_AAC).m4a" },
+        { name: "Photograph", file: "audio/Ed Sheeran/Photograph (128kbit_AAC).m4a" },
+        { name: "Sapphire", file: "audio/Ed Sheeran/Sapphire (128kbit_AAC).m4a" },
+        { name: "Shape of You", file: "audio/Ed Sheeran/Shape of You (128kbit_AAC).m4a" },
+        { name: "Thinking out Loud", file: "audio/Ed Sheeran/Thinking out Loud (128kbit_AAC).m4a" }
+    ],
+    "taylor-swift": [
+        { name: "Blank Space", file: "audio/Taylor Swift/Blank Space (128kbit_AAC).m4a" },
+        { name: "Enchanted", file: "audio/Taylor Swift/Enchanted (128kbit_AAC).m4a" },
+        { name: "Patient Zero", file: "audio/Taylor Swift/Patient Zero (128kbit_AAC).m4a" },
+        { name: "Shake It Off", file: "audio/Taylor Swift/Shake It Off (128kbit_AAC).m4a" },
+        { name: "The Fate of Ophelia", file: "audio/Taylor Swift/The Fate of Ophelia (128kbit_AAC).m4a" }
+    ],
+    "linkin-park": [
+        { name: "Faint", file: "audio/Linkin Park/Faint (128kbit_AAC).m4a" },
+        { name: "In the End", file: "audio/Linkin Park/In the End (128kbit_AAC).m4a" },
+        { name: "Numb", file: "audio/Linkin Park/Numb (128kbit_AAC).m4a" },
+        { name: "Somewhere I Belong", file: "audio/Linkin Park/Somewhere I Belong (128kbit_AAC).m4a" },
+        { name: "What I've Done", file: "audio/Linkin Park/What I've Done (128kbit_AAC).m4a" }
+    ],
+    "bodyslam": [
+        { name: "เสียดาย", file: "audio/Bodyslam/เสียดาย (128kbit_AAC).m4a" },
+        { name: "ความรัก", file: "audio/Bodyslam/ความรัก (128kbit_AAC).m4a" },
+        { name: "ความรักทำให้คนตาบอด", file: "audio/Bodyslam/ความรักทำให้คนตาบอด (128kbit_AAC).m4a" },
+        { name: "งมงาย", file: "audio/Bodyslam/งมงาย (128kbit_AAC).m4a" },
+        { name: "นาฬิกาตาย", file: "audio/Bodyslam/นาฬิกาตาย (128kbit_AAC).m4a" }
+    ],
+    "billie-eilish": [
+        { name: "BIRDS OF A FEATHER", file: "audio/Billie Eilish/BIRDS OF A FEATHER (128kbit_AAC).m4a" },
+        { name: "CHIHIRO", file: "audio/Billie Eilish/CHIHIRO (128kbit_AAC).m4a" },
+        { name: "lovely", file: "audio/Billie Eilish/lovely (128kbit_AAC).m4a" },
+        { name: "ocean eyes", file: "audio/Billie Eilish/ocean eyes (128kbit_AAC).m4a" },
+        { name: "WILDFLOWER", file: "audio/Billie Eilish/WILDFLOWER (128kbit_AAC).m4a" }
+    ],
+    "lisa": [
+        { name: "Cut U Off", file: "audio/LISA/Cut U Off (128kbit_AAC).m4a" },
+        { name: "MONEY", file: "audio/LISA/MONEY (160kbit_Opus).opus" },
+        { name: "Rockstar", file: "audio/LISA/Rockstar (152kbit_Opus).opus" },
+        { name: "SaWaDiKa", file: "audio/LISA/SaWaDiKa (128kbit_AAC).m4a" },
+        { name: "Tarantino", file: "audio/LISA/Tarantino (128kbit_AAC).m4a" }
+    ],
     "drake": [],
     "joji": [],
     "the-weeknd": [],

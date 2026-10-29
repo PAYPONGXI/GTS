@@ -448,15 +448,20 @@
 
         <!-- Game Area -->
         <section id="game-area" class="game-area">
+            <div id="start-prompt">
+                <p>กดเริ่มเกมเพื่อฟังเพลง</p>
+                <button id="start-btn" class="submit-btn">เริ่มเกม</button>
+            </div>
+
             <!-- Timer -->
-            <div class="timer-container">
+            <div id="timer-container" class="timer-container" style="display: none;">
                 <div class="timer-ring">
                     <span class="timer-text" id="timer-text">15</span>
                 </div>
             </div>
 
             <!-- Answer Section -->
-            <div class="answer-section">
+            <div id="answer-section" class="answer-section" style="display: none;">
                 <input 
                     type="text" 
                     id="answer-input" 
@@ -473,6 +478,10 @@
 
             <!-- Feedback -->
             <div id="feedback" class="feedback"></div>
+            <div id="playback-error" class="feedback incorrect" style="display: none;" role="alert">
+                เล่นเพลงไม่สำเร็จ ตรวจสอบไฟล์เสียงแล้วลองอีกครั้ง
+                <button id="retry-audio-btn" class="submit-btn">ลองเล่นอีกครั้ง</button>
+            </div>
         </section>
     </main>
 
@@ -514,7 +523,10 @@
         const artistId = urlParams.get('artist') || 'xxxtentacion';
 
         const artistInfo = mockArtists.find(artist => artist.id === artistId);
-        const songs = artistSongs[artistId] || [];
+        const songs = (artistSongs[artistId] || []).map(song => ({
+            ...song,
+            file: artistId === 'xxxtentacion' ? song.file.replace(/^audio\//, 'audio-X/') : song.file
+        }));
 
         if (!artistInfo) {
             // Unknown artist id
@@ -588,6 +600,12 @@
                     countdown: document.getElementById('countdown'),
                     countdownNumber: document.getElementById('countdown-number'),
                     gameArea: document.getElementById('game-area'),
+                    startPrompt: document.getElementById('start-prompt'),
+                    startBtn: document.getElementById('start-btn'),
+                    timerContainer: document.getElementById('timer-container'),
+                    answerSection: document.getElementById('answer-section'),
+                    playbackError: document.getElementById('playback-error'),
+                    retryAudioBtn: document.getElementById('retry-audio-btn'),
                     timerText: document.getElementById('timer-text'),
                     answerInput: document.getElementById('answer-input'),
                     submitBtn: document.getElementById('submit-btn'),
@@ -626,6 +644,24 @@
                 }, { once: true });
 
                 this.elements.submitBtn.addEventListener('click', () => this.checkAnswer());
+                this.elements.startBtn.addEventListener('click', () => {
+                    this.elements.startPrompt.style.display = 'none';
+                    this.elements.timerContainer.style.display = 'flex';
+                    this.elements.answerSection.style.display = 'block';
+                    this.updateDisplay();
+                    this.startRound();
+                });
+                this.elements.retryAudioBtn.addEventListener('click', async () => {
+                    this.elements.playbackError.style.display = 'none';
+                    const started = await this.playCurrentSong();
+                    if (started) {
+                        this.isPlaying = true;
+                        this.elements.answerInput.disabled = false;
+                        this.elements.submitBtn.disabled = false;
+                        this.startTimer();
+                        this.elements.answerInput.focus();
+                    }
+                });
                 this.elements.answerInput.addEventListener('keypress', (e) => {
                     if (e.key === 'Enter') this.checkAnswer();
                 });
@@ -634,10 +670,6 @@
 
                 this.loadHighScore();
 
-                // Start game
-                setTimeout(() => {
-                    this.startNewRound();
-                }, 100);
             }
 
             // High score / leaderboard (localStorage)
@@ -745,7 +777,7 @@
             }
             
             // Start the actual round
-            startRound() {
+            async startRound() {
                 // Select random song
                 const randomIndex = Math.floor(Math.random() * this.availableSongs.length);
                 this.currentSong = this.availableSongs[randomIndex];
@@ -760,14 +792,21 @@
                 this.elements.submitBtn.disabled = false;
                 this.elements.answerInput.value = '';
                 this.elements.answerInput.focus();
+                this.elements.playbackError.style.display = 'none';
 
-                this.playCurrentSong();
-                this.startTimer();
+                const started = await this.playCurrentSong();
+                if (!started) {
+                    this.elements.answerInput.disabled = true;
+                    this.elements.submitBtn.disabled = true;
+                    return;
+                }
+
                 this.isPlaying = true;
+                this.startTimer();
             }
 
             // Play the current round's song clip
-            playCurrentSong() {
+            async playCurrentSong() {
                 this.songAudio.pause();
                 this.songAudio.currentTime = 0;
                 this.songAudio.src = this.currentSong.file
@@ -775,9 +814,15 @@
                     .map(segment => encodeURIComponent(segment))
                     .join('/');
 
-                this.songAudio.play()
-                    .then(() => console.log(`Playing: ${this.currentSong.file}`))
-                    .catch(err => console.error(`Playback failed for "${this.currentSong.file}":`, err));
+                try {
+                    await this.songAudio.play();
+                    console.log(`Playing: ${this.currentSong.file}`);
+                    return true;
+                } catch (err) {
+                    console.error(`Playback failed for "${this.currentSong.file}":`, err);
+                    this.elements.playbackError.style.display = 'block';
+                    return false;
+                }
             }
 
             stopCurrentSong() {
