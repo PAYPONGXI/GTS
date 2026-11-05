@@ -17,6 +17,53 @@
             transition: opacity 0.25s ease;
         }
 
+        /* อันนี้ โอเป็นคนทำเอง */
+
+        .game-container.artist-xxxtentacion {
+            background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                url("images/XXX_BG.jpg") center / cover fixed no-repeat;
+        }
+
+        body.game-container.artist-ed-sheeran {
+            background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                url("images/ed_shreen_bg.jpeg") center / cover fixed no-repeat;
+        }
+
+        body.game-container.artist-taylor-swift {
+            background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                url("images/Taylor-Swift_BG.jpg") center / cover fixed no-repeat;
+        }
+        
+        body.game-container.artist-bird-thongchai {
+            background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                url("images/Bird Thongchai_BG.jpg") center / cover fixed no-repeat;
+        }
+
+        body.game-container.artist-palmy {
+            background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                url("images/Palmy_BG.jpg") center / cover fixed no-repeat;
+        }
+        
+        body.game-container.artist-linkin-park {
+            background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                url("images/Linkin Park_BG.jpg") center / cover fixed no-repeat;
+        }
+
+        body.game-container.artist-bodyslam {
+            background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                url("images/Bodyslam_BG.jpg") center / cover fixed no-repeat;
+        }
+
+        body.game-container.artist-billie-eilish {
+            background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                url("images/Billie Eilish_BG.jpeg") center / cover fixed no-repeat;
+        }
+
+        body.game-container.artist-lisa {
+            background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                url("images/LISA_BG.jpg") center / cover fixed no-repeat;
+        }
+
         .game-container.page-enter {
             opacity: 1;
         }
@@ -237,6 +284,17 @@
             cursor: not-allowed;
         }
 
+        .stop-audio-btn {
+            margin: 0 0 12px;
+            background: rgba(255,255,255,0.18);
+            box-shadow: none;
+        }
+
+        .stop-audio-btn:hover:not(:disabled) {
+            background: rgba(255,255,255,0.28);
+            box-shadow: none;
+        }
+
         .feedback {
             margin-top: 20px;
             padding: 15px;
@@ -284,27 +342,6 @@
         @keyframes floatUp {
             0% { opacity: 1; transform: translateY(0); }
             100% { opacity: 0; transform: translateY(-25px); }
-        }
-
-        .countdown {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            height: 300px;
-        }
-
-        .countdown-number {
-            font-size: 120px;
-            font-weight: 800;
-            color: #ff6b6b;
-            text-shadow: 0 0 30px rgba(255,107,107,0.5);
-            animation: countdownPulse 1s ease-in-out;
-        }
-
-        @keyframes countdownPulse {
-            0% { transform: scale(0.5); opacity: 0; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
         }
 
         .overlay {
@@ -397,9 +434,6 @@
                 font-size: 36px;
             }
             
-            .countdown-number {
-                font-size: 80px;
-            }
         }
 
     </style>
@@ -408,7 +442,7 @@
     <!-- Game Header -->
     <header class="game-header">
         <div class="container">
-            <a href="international.html" class="back-to-menu">← กลับสู่เมนูหลัก</a>
+            <a id="back-to-menu" href="international.html" class="back-to-menu">← กลับสู่เมนูหลัก</a>
             <div class="artist-info">
                 <img id="header-artist-image" src="images/XXXTENTACION.jpg" alt="XXXTENTACION" class="artist-image" onerror="this.style.display='none';">
                 <h1 class="artist-name" id="header-artist-name">XXXTENTACION</h1>
@@ -441,11 +475,6 @@
             </div>
         </section>
 
-        <!-- Countdown -->
-        <div id="countdown" class="countdown">
-            <div class="countdown-number" id="countdown-number">3</div>
-        </div>
-
         <!-- Game Area -->
         <section id="game-area" class="game-area">
             <div id="start-prompt">
@@ -470,6 +499,10 @@
                     autocomplete="off"
                     disabled
                 >
+                <br>
+                <button id="stop-audio-btn" class="submit-btn stop-audio-btn" type="button" disabled>
+                    หยุดเพลง
+                </button>
                 <br>
                 <button id="submit-btn" class="submit-btn" disabled>
                     ส่งคำตอบ
@@ -521,8 +554,18 @@
         // Get URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const artistId = urlParams.get('artist') || 'xxxtentacion';
+        document.body.classList.add(`artist-${artistId}`);
 
         const artistInfo = mockArtists.find(artist => artist.id === artistId);
+        const categoryPages = {
+            international: 'international.html',
+            pop: 'pop.html',
+            rock: 'rock.html',
+            'thai-pop': 'thai-pop.html'
+        };
+        const backToMenuHref = categoryPages[artistInfo && artistInfo.category] || 'international.html';
+        document.getElementById('back-to-menu').href = backToMenuHref;
+
         const songs = (artistSongs[artistId] || []).map(song => ({
             ...song,
             file: artistId === 'xxxtentacion' ? song.file.replace(/^audio\//, 'audio-X/') : song.file
@@ -533,7 +576,7 @@
             document.body.innerHTML = `
                 <div class="game-container">
                     <div class="game-main">
-                        <a href="international.html" class="back-to-menu">← กลับสู่เมนูหลัก</a>
+                        <a href="${backToMenuHref}" class="back-to-menu">← กลับสู่เมนูหลัก</a>
                         <div class="game-area">
                             <h2 style="color: #ff6b6b; margin-bottom: 20px;">🚫 Artist Not Found</h2>
                             <p style="color: white; margin-bottom: 30px;">We couldn't find that artist.</p>
@@ -547,7 +590,7 @@
             document.body.innerHTML = `
                 <div class="game-container">
                     <div class="game-main">
-                        <a href="international.html" class="back-to-menu">← กลับสู่เมนูหลัก</a>
+                        <a href="${backToMenuHref}" class="back-to-menu">← กลับสู่เมนูหลัก</a>
                         <div class="game-area">
                             <h2 style="color: #ff6b6b; margin-bottom: 20px;">🚧 Coming Soon</h2>
                             <p style="color: white; margin-bottom: 30px;">Songs for ${artistInfo.name} aren't available yet.</p>
@@ -597,8 +640,6 @@
                     levelDisplay: document.getElementById('level'),
                     currentRoundDisplay: document.getElementById('current-round'),
                     totalRoundsDisplay: document.getElementById('total-rounds'),
-                    countdown: document.getElementById('countdown'),
-                    countdownNumber: document.getElementById('countdown-number'),
                     gameArea: document.getElementById('game-area'),
                     startPrompt: document.getElementById('start-prompt'),
                     startBtn: document.getElementById('start-btn'),
@@ -608,6 +649,7 @@
                     retryAudioBtn: document.getElementById('retry-audio-btn'),
                     timerText: document.getElementById('timer-text'),
                     answerInput: document.getElementById('answer-input'),
+                    stopAudioBtn: document.getElementById('stop-audio-btn'),
                     submitBtn: document.getElementById('submit-btn'),
                     feedback: document.getElementById('feedback'),
                     levelComplete: document.getElementById('level-complete'),
@@ -635,15 +677,8 @@
             }
             
             init() {
-                // Create AudioContext after user interaction
-                document.addEventListener('click', () => {
-                    if (!this.audioContext) {
-                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                        console.log('AudioContext initialized');
-                    }
-                }, { once: true });
-
                 this.elements.submitBtn.addEventListener('click', () => this.checkAnswer());
+                this.elements.stopAudioBtn.addEventListener('click', () => this.toggleAudioPlayback());
                 this.elements.startBtn.addEventListener('click', () => {
                     this.elements.startPrompt.style.display = 'none';
                     this.elements.timerContainer.style.display = 'flex';
@@ -656,6 +691,7 @@
                     const started = await this.playCurrentSong();
                     if (started) {
                         this.isPlaying = true;
+                        this.elements.stopAudioBtn.disabled = false;
                         this.elements.answerInput.disabled = false;
                         this.elements.submitBtn.disabled = false;
                         this.startTimer();
@@ -707,54 +743,6 @@
                 return saved ? JSON.parse(saved) : [];
             }
 
-            // Web Audio API beep sound
-            playBeep() {
-                if (!this.audioContext) return;
-
-                const oscillator = this.audioContext.createOscillator();
-                const gainNode = this.audioContext.createGain();
-
-                oscillator.connect(gainNode);
-                gainNode.connect(this.audioContext.destination);
-
-                oscillator.frequency.value = 800;
-                oscillator.type = 'sine';
-
-                gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(
-                    0.01,
-                    this.audioContext.currentTime + 0.15
-                );
-
-                oscillator.start();
-                oscillator.stop(this.audioContext.currentTime + 0.15);
-            }
-
-            // Countdown with beeps
-            async startCountdown() {
-                this.elements.countdown.style.display = 'flex';
-                this.elements.gameArea.style.display = 'none';
-                
-                for (let i = 3; i >= 1; i--) {
-                    this.elements.countdownNumber.textContent = i;
-                    this.playBeep();
-                    await this.sleep(1000);
-                }
-                
-                this.elements.countdownNumber.textContent = 'GO!';
-                this.playBeep();
-                await this.sleep(500);
-                
-                this.elements.countdown.style.display = 'none';
-                this.elements.gameArea.style.display = 'block';
-                
-                this.startRound();
-            }
-            
-            sleep(ms) {
-                return new Promise(resolve => setTimeout(resolve, ms));
-            }
-            
             // Start a new round
             startNewRound() {
                 if (this.availableSongs.length === 0) {
@@ -772,8 +760,12 @@
                     }
                 }
                 
+                this.elements.gameArea.style.display = 'block';
+                this.elements.startPrompt.style.display = 'none';
+                this.elements.timerContainer.style.display = 'flex';
+                this.elements.answerSection.style.display = 'block';
                 this.updateDisplay();
-                this.startCountdown();
+                this.startRound();
             }
             
             // Start the actual round
@@ -816,6 +808,8 @@
 
                 try {
                     await this.songAudio.play();
+                    this.elements.stopAudioBtn.textContent = 'หยุดเพลง';
+                    this.elements.stopAudioBtn.disabled = false;
                     console.log(`Playing: ${this.currentSong.file}`);
                     return true;
                 } catch (err) {
@@ -826,8 +820,31 @@
             }
 
             stopCurrentSong() {
+                this.stopTimer();
                 this.songAudio.pause();
                 this.songAudio.currentTime = 0;
+                this.elements.stopAudioBtn.textContent = 'หยุดเพลง';
+                this.elements.stopAudioBtn.disabled = true;
+            }
+
+            async toggleAudioPlayback() {
+                if (!this.isPlaying || !this.currentSong) return;
+
+                if (this.songAudio.paused) {
+                    try {
+                        await this.songAudio.play();
+                        this.elements.stopAudioBtn.textContent = 'หยุดเพลง';
+                        this.startTimer();
+                    } catch (err) {
+                        console.error(`Playback resume failed for "${this.currentSong.file}":`, err);
+                        this.elements.playbackError.style.display = 'block';
+                    }
+                    return;
+                }
+
+                this.songAudio.pause();
+                this.stopTimer();
+                this.elements.stopAudioBtn.textContent = 'เล่นต่อ';
             }
 
             // Timer management
